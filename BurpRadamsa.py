@@ -44,8 +44,12 @@ class IntruderPayloadGenerator(IIntruderPayloadGenerator):
         return payload
 
     def reset(self):
-        os.unlink(temp_dir)
+        try:
+            os.unlink(temp_dir)
+        except Exception:
+            pass
         self.indeces = {}
+        self.fresh = True
 
 class BurpExtender(IBurpExtender, IIntruderPayloadGeneratorFactory):
 
